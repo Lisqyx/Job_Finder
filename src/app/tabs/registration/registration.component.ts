@@ -9,6 +9,7 @@ import { JobService } from 'src/app/service/job.service';
 export class RegistrationComponent {
   employerUsers: any[] = []
   employerObj:any = {
+    EmployerID: '',
     CompanyName: '',
     Email: '',
     MobileNo: '',
@@ -21,12 +22,29 @@ export class RegistrationComponent {
     LogoURL: ''
   };
 
+  jobseekerUsers: any[] = []
+  jobseekerObj: any = {
+    "JobSeekerID" : 0,
+    "FullName": "",
+    "Email": "",
+    "MobileNo": "",
+    "ExperienceStatus": "",
+    "ResumeURL":  ""
+  }
+
+  isJobseeker: boolean = true;
+
   constructor(){}
 
   ngOnInit(): void {}
   
-  onRegister(){
+  onRegisterEmployer(){
     this.employerUsers.push(this.employerObj);
     localStorage.setItem('employerUsers',JSON.stringify(this.employerUsers))
+  }
+
+  onRegisterJobSeeker(){
+    this.jobseekerUsers.push(this.jobseekerObj);
+    localStorage.setItem('jobseekerUsers',JSON.stringify(this.jobseekerUsers))
   }
 }
