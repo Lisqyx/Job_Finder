@@ -5,10 +5,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class JobService {
- apiEndPoint: string = 'https://freeapi.miniprojectideas.com/api/JobPortal/AddNewEmployer'
-  constructor(private http: HttpClient) { }
+ jobseekerUsers: any[] = [];
+ employerUsers: any[] = [];
 
-  registerEmployer(obj: any){
-    return this.http.post(this.apiEndPoint + 'AddNewEmployer', obj)
+  setJobseekerUsers(data: any) {
+    this.jobseekerUsers = data;
+}
+
+  getJobseekerUsers() {
+    return this.jobseekerUsers;
+}
+
+  setEmployerUsers(data: any) {
+    this.employerUsers = data;
+}
+
+  getEmployerUsers() {
+    return this.employerUsers;
   }
 }

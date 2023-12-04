@@ -20,6 +20,16 @@
                             <label for="email">Email</label>
                             <input type="email" class="form-control" [(ngModel)]="jobseekerObj.Email" name="Email" placeholder="Enter your email" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="email">Password</label>
+                            <input type="password" class="form-control" [(ngModel)]="jobseekerObj.Password" name="Password" placeholder="Enter your Password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Confirm your Password" [(ngModel)]="jobseekerObj.ConfirmPassword"  name="ConfirmPassword" required>
+                        </div>
             
                         <div class="form-group">
                             <label for="mobileNo">Mobile Number</label>
@@ -55,7 +65,7 @@
                                 <input type="text" [(ngModel)]="employerObj.CompanyName" name="CompanyName" class="form-control" required >
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Email</label>
+                                <label class="form-label">Company Email</label>
                                 <input type="email" [(ngModel)]="employerObj.Email" name="Email" class="form-control" required>
                             </div>
                         </div>
@@ -78,7 +88,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" [(ngModel)]="employerObj.ConfirmPassword" name="ConfirmPassword" class="form-control">
                             </div>
                         </div>
     

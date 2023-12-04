@@ -9,42 +9,84 @@ import { JobService } from 'src/app/service/job.service';
 export class RegistrationComponent {
   employerUsers: any[] = []
   employerObj:any = {
-    EmployerID: '',
-    CompanyName: '',
-    Email: '',
-    MobileNo: '',
-    PhoneNo: '',
-    Password: '',
-    CompanyAddress: '',
-    CompanyDescription: '',
-    City: '',
-    State: '',
-    LogoURL: ''
+    "CompanyName": '',
+    "Email": '',
+    "MobileNo": '',
+    "PhoneNo": '',
+    "Password": '',
+    "CompanyAddress": '',
+    "CompanyDescription": '',
+    "City": '',
+    "State": '',
+    "LogoURL": ''
   };
 
   jobseekerUsers: any[] = []
   jobseekerObj: any = {
-    "JobSeekerID" : 0,
     "FullName": "",
     "Email": "",
+    "Password": "",
     "MobileNo": "",
     "ExperienceStatus": "",
     "ResumeURL":  ""
-  }
+  };
 
   isJobseeker: boolean = true;
 
-  constructor(){}
+  constructor(private jobService: JobService){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    const localEmployerData = localStorage.getItem('employerUsers');
+    if (localEmployerData !== null) {
+      this.jobService.setEmployerUsers(JSON.parse(localEmployerData));
+    }
+
+    const localData = localStorage.getItem('jobseekerUsers');
+    if (localData !== null) {
+      this.jobService.setJobseekerUsers(JSON.parse(localData));
+  }
+}
   
   onRegisterEmployer(){
-    this.employerUsers.push(this.employerObj);
-    localStorage.setItem('employerUsers',JSON.stringify(this.employerUsers))
-  }
+    const existingEmployerData = this.jobService.getEmployerUsers() || [];
+    existingEmployerData.push(this.employerObj);
+    this.jobService.setEmployerUsers(existingEmployerData);
+    localStorage.setItem('employerUsers', JSON.stringify(existingEmployerData));
+
+    console.log('Employer data after registration:', existingEmployerData);
+
+    this.employerObj = {
+      "CompanyName": '',
+      "Email": '',
+      "MobileNo": '',
+      "PhoneNo": '',
+      "Password": '',
+      "ConfirmPassword":"",
+      "CompanyAddress": '',
+      "CompanyDescription": '',
+      "City": '',
+      "State": '',
+      "LogoURL": ''
+    };
+  };
 
   onRegisterJobSeeker(){
-    this.jobseekerUsers.push(this.jobseekerObj);
-    localStorage.setItem('jobseekerUsers',JSON.stringify(this.jobseekerUsers))
+    const existingJobseekerData = this.jobService.getJobseekerUsers() || [];
+    existingJobseekerData.push(this.jobseekerObj);
+    this.jobService.setJobseekerUsers(existingJobseekerData);
+    localStorage.setItem('jobseekerUsers', JSON.stringify(existingJobseekerData));
+
+    console.log('Jobseeker data after registration:', existingJobseekerData);
+    
+    this.jobseekerObj = {
+      "FullName": "",
+      "Email": "",
+      "Password": "",
+      "ConfirmPassword":"",
+      "MobileNo": "",
+      "ExperienceStatus": "Select Experience Status",
+      "ResumeURL":  ""
+    };
   }
 }
