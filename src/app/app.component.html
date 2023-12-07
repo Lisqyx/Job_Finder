@@ -1,31 +1,45 @@
 <nav class="navbar navbar-expand-lg navbar-white bg-white">
   <div class="container">
-      <a class="navbar-brand" href="index.html">
-          <img src="assets/naukri_Logo.png" alt="" class="d-inline-block align-text-top">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" routerLink="/jobs">Jobs</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Companies</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Services</a>
-              </li>
+    <a class="navbar-brand" href="/home">
+      <img src="https://www.jobseeker.com/logo-black-text.svg" width="150px" alt="" class="d-inline-block align-text-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/jobs">Jobs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Companies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
 
-          </ul>
-          <form class="d-flex">
-              <button routerLink="/login" class="btn btn-outline-primary round-button mx-2" type="button">Login</button>
-              <button routerLink="/register" class="btn btn-success round-button" type="button">Register</button>
-          </form>
-      </div>
+        <ng-container *ngIf="loggedInUser?.Role === 'employer'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/new-job">Create Job</a>
+          </li>
+        </ng-container>
+      </ul>
+
+      <ng-container *ngIf="isLoggedIn(); else loginButtons">
+        <div class="navbar-text mx-2">
+          {{ getUserName() }}
+        </div>
+        <button (click)="onLogout()" class="btn btn-outline-danger round-button" type="button">Logout</button>
+      </ng-container>
+      <ng-template #loginButtons>
+        <form class="d-flex">
+          <button routerLink="/login" class="btn btn-outline-primary round-button mx-2" type="button">Login</button>
+          <button routerLink="/register" class="btn btn-success round-button" type="button">Register</button>
+        </form>
+      </ng-template>
+    </div>
   </div>
 </nav>
 

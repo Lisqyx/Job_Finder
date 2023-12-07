@@ -1,1 +1,59 @@
-<p>home works!</p>
+<!-- Will Check if the logged user is either jobseeker or employer-->
+<div *ngIf="loggedInUser?.Role === 'jobseeker'">
+    <div class="search-section">
+        <div class="header">
+            <h1>Find your Dream Job Now</h1>
+            <p>Over 5K jobs for you to explore!</p>
+        </div>
+        <div class="Wrapper ">
+            <div>
+                <div class="logoContainer">
+                    <img src="https://static.naukimg.com/s/7/103/i/search.9ec0e1ac.svg" id="searchIcon">
+                    <input type="text" placeholder="Enter Skills / designations / companies" class="sugginput"
+                        id="input1">
+                    <div class="pipe1"></div>
+                    <input type="text" placeholder="Enter location" class="sugginput" id="input2">
+                    <div class="pipe1"></div>
+                    <select id="input3" class="sugginput">
+                        <option hidden="">Select Experience</option>
+                        <option >Entry level</option>
+                        <option >Mid Level</option>
+                        <option >Senior years</option>
+                    </select>
+
+                    <input type="submit" class="search" value="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  <div *ngIf="loggedInUser?.Role === 'employer'">
+    <div class="search-section">
+        <div class="header">
+            <h1>Find your Dream Job Now</h1>
+            <p>Over 5K jobs for you to explore!</p>
+        </div>
+        <div class="Wrapper ">
+            <div>
+                <div class="logoContainer">
+                    <img src="https://static.naukimg.com/s/7/103/i/search.9ec0e1ac.svg" id="searchIcon">
+                    <input type="text" placeholder="Enter Skills / designations / companies" class="sugginput"
+                        id="input1">
+                    <div class="pipe1"></div>
+                    <input type="text" placeholder="Enter location" class="sugginput" id="input2">
+                    <div class="pipe1"></div>
+                    <select id="input3" class="sugginput">
+                        <option hidden="">Select Experience</option>
+                        <option >Entry level</option>
+                        <option >Mid Level</option>
+                        <option >Senior years</option>
+                    </select>
+
+                    <input type="submit" class="search" value="Search">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

@@ -1,1 +1,73 @@
-<p>jobs works!</p>
+<div class="container-fluid body-background">
+        <div class="container pt-3 ">
+            <div class="row">
+                <div class="col-3 filter">
+                    <div class="card"> 
+                        <div class="card-body">
+                            <h6 class="text-center">All Filter</h6>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-6  job">
+                    <div class="row" *ngFor="let job of JobList">
+                        <div class="col-12">
+                            <div class="card"> 
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a  href="job-detail.html"> 
+                                                    <h6 style="margin-bottom: 0;">{{job.JobTitle}}</h6>
+                                                </a>
+                                                    <a>By: {{job.CompanyName}}</a>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-4 text-end">
+                                            <img class="compo_logo" [src]="job.logoURL" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <i class="fa fa-suitcase" aria-hidden="true"></i>Experience:  {{job.JobExperience}}  
+                                        </div>
+                                        <div class="col-4">
+                                            <i class="fa fa-dollar" aria-hidden="true"></i> {{job.Salary}} Per Year  
+                                        </div>
+                                        <div class="col-4">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i> {{job.CompanyAddress}} 
+                                        </div>
+                                    </div>
+                                    <div class="row pt-1">
+                                        <div class="col-12">
+                                            <i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="text-muted">Desc: {{job.JobDescription| slice:0-10}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row pt-1">
+                                        <div class="col-6">
+                                          <small>Few Hours Ago</small>  
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <i [class]="job.bookmarked ? 'fa fa-bookmark text-warning' : 'fa fa-bookmark-o'"
+                                                (click)="toggleBookmark(job)"
+                                                aria-hidden="true"
+                                                style="cursor: pointer; margin-right: 5%;"></i>
+                                                <button *ngIf="canDelete(job)" class="btn btn-danger btn-sm float-end" (click)="deleteJob(job)">Delete</button>
+                                        </div>
+                                    </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-3 filter">
+                    <div class="card"> 
+                        <div class="card-body">
+                            <h6 class="text-center">Top Companies Hiring</h6>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        
+    </div>

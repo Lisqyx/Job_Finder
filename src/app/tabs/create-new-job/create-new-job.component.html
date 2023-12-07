@@ -1,1 +1,55 @@
-<p>create-new-job works!</p>
+<div class="container">
+    <h3>Create New Job Post</h3>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Job Category</label>
+            <select class="form-select" [(ngModel)]="jobObj.JobCategory" name="JobCategory" required>
+                <option value="" disabled>Select Job Category</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Marketing & Communication">Marketing & Communication</option>
+                <option value="Engineering - Software & QA">Engineering - Software & QA</option>
+                <option value="IT & Information Security">IT & Information Security</option>
+                <option value="UX, Design & Architecture">UX, Design & Architecture</option>
+                <option value="Teaching & Training">Teaching & Training</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Job Title</label>
+            <input type="text" [(ngModel)]="jobObj.JobTitle" name="JobTitle" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Job Experience</label>
+            <select class="form-select" [(ngModel)]="jobObj.JobExperience" name="JobExperience" required>
+                <option value="" disabled>Select Job Experience</option>
+                <option value="Entry Level">Entry Level</option>
+                <option value="Mid Level">Mid Level</option>
+                <option value="Senior Level">Senior Level</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="phoneNo" class="form-label">Salary</label>
+            <input type="tel" [(ngModel)]="jobObj.Salary" name="Salary" class="form-control">
+        </div>
+    </div> 
+
+    <div class="mb-3">
+        <label class="form-label">Company Address</label>
+        <textarea type="text" class="form-control" rows="2" [(ngModel)]="jobObj.CompanyAddress" name="CompanyAddress" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Job Description</label>
+        <textarea class="form-control" rows="4" [(ngModel)]="jobObj.JobDescription" name="CompanyDescription"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Company Logo URL</label>
+        <input type="url" class="form-control" required [(ngModel)]="jobObj.LogoURL" name="LogoURL">
+    </div>
+    <div class="button mb-3" style="text-align: center;">
+        <button (click)="createJob()" type="button" class="btn btn-outline-primary">Create Job</button>
+    </div>
+</div>
