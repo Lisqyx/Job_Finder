@@ -9,6 +9,8 @@ import { CreateNewJobComponent } from './tabs/create-new-job/create-new-job.comp
 import { JobListingComponent } from './tabs/job-listing/job-listing.component';
 import { MyJobsComponent } from './tabs/my-jobs/my-jobs.component';
 import { ProfileComponent } from './tabs/profile/profile.component';
+import { CompaniesComponent } from './tabs/companies/companies.component';
+import { ServicesComponent } from './tabs/services/services.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,14 @@ const routes: Routes = [
   {
     path:'profile',
     component:ProfileComponent
+  },
+  {
+    path:'companies',
+    component:CompaniesComponent
+  },
+  {
+    path:'services',
+    component:ServicesComponent
   },
   {
     path:'**',

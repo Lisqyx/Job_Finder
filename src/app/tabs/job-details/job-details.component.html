@@ -33,12 +33,14 @@
       </div>
     </div>
     <div *ngIf="loggedInUser?.Role === 'employer'" class="employer-container">
-        <h6 class="mt-3">JobSeeking Applicants:</h6>
-        <li *ngFor="let applicant of getJobApplicants(jobDetails.JobID)">
+      <h6 class="mt-3">JobSeeking Applicants:</h6>
+      <ul>
+        <li *ngFor="let applicant of jobApplicants">
           {{ applicant.FullName }} | Phone No: ({{ applicant.MobileNo }})
         </li>
-        <p *ngIf="getJobApplicants(jobDetails.JobID).length === 0">No applicants for this job.</p>
-      </div>
+        <p *ngIf="jobApplicants.length === 0">No applicants for this job.</p>
+      </ul>
+    </div>
   </div>
   
   

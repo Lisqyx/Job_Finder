@@ -91,36 +91,24 @@ export class JobService {
     return jobs.find(job => job.JobID === jobId);
   }
 
-  applyForJob(job: any): void {
-    const loggedInUser = this.getLoggedInUser();
-    
-    // Check if the user has already applied for this job
-    if (!this.hasUserAppliedForJob(loggedInUser, job)) {
-      const jobApplications = JSON.parse(localStorage.getItem('jobApplications') || '[]');
-      jobApplications.push({ jobId: job.JobID, applicant: loggedInUser });
-      localStorage.setItem('jobApplications', JSON.stringify(jobApplications));
-  
-      // Update the 'applied' property of the job
-      job.applied = true;
-  
-      // Save the jobs back to local storage
-      localStorage.setItem('jobs', JSON.stringify(this.getJobs()));
-    }
-  }
 
   getJobs(): any[] {
     return JSON.parse(localStorage.getItem('jobs') || '[]');
   }
 
   getJobApplicants(jobId: string): any[] {
-    const jobApplications = JSON.parse(localStorage.getItem('jobApplications') || '[]');
-    const users = this.getJobseekerUsers(); // Assume jobseeker users are stored in localStorage
-    return jobApplications
-      .filter((application: { jobId: string, applicant: any }) => application.jobId === jobId)
-      .map((application: { jobId: string, applicant: any }) => {
-        const user = users.find(u => u.Username === application.applicant.Username);
-        return { ...application.applicant, PhoneNumber: user?.PhoneNumber };
+    const jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+    const targetJob = jobs.find((job: any) => job.JobID === jobId);
+  
+    if (targetJob) {
+      const users = this.getJobseekerUsers();
+      return targetJob.applicants.map((applicantId: any) => {
+        const user = users.find((u: any) => u.ID === applicantId);
+        return { ...user, PhoneNumber: user?.PhoneNumber };
       });
+    }
+  
+    return [];
   }
 
   isJobseeker(user: any): boolean {
@@ -128,11 +116,10 @@ export class JobService {
   }
 
   hasUserAppliedForJob(user: any, job: any): boolean {
-    const jobApplications = JSON.parse(localStorage.getItem('jobApplications') || '[]');
-    return jobApplications.some(
-      (application: { jobId: string, applicant: any }) =>
-        application.jobId === job.JobID && application.applicant.Username === user.Username
-    );
+    const jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+    const targetJob = jobs.find((j: any) => j.JobID === job.JobID);
+  
+    // Check if the user ID is in the applicants array
+    return targetJob && targetJob.applicants?.includes(user.ID);
   }
 }
-

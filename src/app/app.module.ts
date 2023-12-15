@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './tabs/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CompaniesComponent } from './tabs/companies/companies.component';
+import { ServicesComponent } from './tabs/services/services.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateNewJobComponent,
     JobListingComponent,
     MyJobsComponent,
-    ProfileComponent
+    ProfileComponent,
+    CompaniesComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { JobService } from 'src/app/service/job.service';
 export class JobDetailsComponent implements OnInit {
   loggedInUser: any;
   jobDetails: any;
+  jobApplicants: any[] = [];
 
   constructor(public route: ActivatedRoute, public jobService: JobService) {}
 
@@ -18,10 +19,15 @@ export class JobDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       const jobId = params['id'];
       this.jobDetails = this.jobService.getJobDetails(jobId);
+      this.jobApplicants = this.jobService.getJobApplicants(this.jobDetails.JobID);
     });
   }
 
-  getJobApplicants(jobId: string): any[] {
-    return this.jobService.getJobApplicants(jobId);
+  getJobApplicantsDetails(applicantIds: string[]): any[] {
+    const users = this.jobService.getJobseekerUsers();
+    return applicantIds.map(applicantId => {
+      const user = users.find(u => u.ID === applicantId);
+      return user ? { FullName: user.FullName, PhoneNo: user.PhoneNo } : null;
+    });
   }
 }

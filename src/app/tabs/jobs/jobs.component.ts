@@ -32,6 +32,18 @@ export class JobsComponent implements OnInit {
     }
   }
 
+  applyForJob(job: any): void {
+    // Implement the logic for applying to a job
+    // For example, you can add the logged-in user to the job's applicants array
+    const loggedInUser = this.jobService.getLoggedInUser();
+  
+    if (loggedInUser && this.jobService.isJobseeker(loggedInUser)) {
+      job.applicants = job.applicants || [];
+      job.applicants.push(loggedInUser); // Push the entire loggedInUser object
+      localStorage.setItem('jobs', JSON.stringify(this.JobList));
+    }
+  }
+
   // Just a way for the bookmark fas-fa to work
   toggleBookmark(job: any): void {
     job.bookmarked = !job.bookmarked;
@@ -69,13 +81,11 @@ export class JobsComponent implements OnInit {
     this.router.navigate(['/job-detail', job.JobID]);
   }
 
-  applyForJob(job: any): void {
-    this.jobService.applyForJob(job);
-  }
-
   canApply(job: any): boolean {
     const loggedInUser = this.jobService.getLoggedInUser();
-    return this.jobService.isJobseeker(loggedInUser) && !this.jobService.hasUserAppliedForJob(loggedInUser, job);
+    return (
+      this.jobService.isJobseeker(loggedInUser) &&
+      !this.jobService.hasUserAppliedForJob(loggedInUser, job)
+    );
   }
 }
-
