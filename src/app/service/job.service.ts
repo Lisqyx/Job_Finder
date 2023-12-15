@@ -16,16 +16,18 @@ export class JobService {
     this.loadEmployerUsers();
   }
 
-  setJobseekerUsers(data: any) {
+  setJobseekerUsers(data: any[]) {
     this.jobseekerUsers = data;
+    localStorage.setItem('jobseekerUsers', JSON.stringify(data));
   }
 
   getJobseekerUsers() {
     return this.jobseekerUsers;
   }
 
-  setEmployerUsers(data: any) {
+  setEmployerUsers(data: any[]) {
     this.employerUsers = data;
+    localStorage.setItem('employerUsers', JSON.stringify(data));
   }
 
   getEmployerUsers() {
@@ -46,19 +48,19 @@ export class JobService {
   }
 
   //Will load the data for jobseekers so it will stay despite the page being refreshed, this was very frustrating
-  private loadJobseekerUsers() {
+  loadJobseekerUsers() {
     const localData = localStorage.getItem('jobseekerUsers');
     this.jobseekerUsers = localData ? JSON.parse(localData) : [];
   }
 
   //Will load the data for employers so it will stay despite the page being refreshed, this was very frustrating
-  private loadEmployerUsers() {
+  loadEmployerUsers() {
     const localData = localStorage.getItem('employerUsers');
     this.employerUsers = localData ? JSON.parse(localData) : [];
   }
 
   //Same as the other two
-  private loadLoggedInUser() {
+  loadLoggedInUser() {
     const userData = localStorage.getItem('loggedInUser');
     this.loggedInUser = userData ? JSON.parse(userData) : null;
   }
@@ -77,6 +79,59 @@ export class JobService {
       this.isAuthenticated() &&
       this.loggedInUser.Role === 'employer' &&
       this.loggedInUser.CompanyName === job.CompanyName
+    );
+  }
+
+  isEmployer(user: any): boolean {
+    return user && user.Role === 'employer';
+  }
+
+  getJobDetails(jobId: string): any {
+    const jobs: any[] = JSON.parse(localStorage.getItem('jobs') || '[]');
+    return jobs.find(job => job.JobID === jobId);
+  }
+
+  applyForJob(job: any): void {
+    const loggedInUser = this.getLoggedInUser();
+    
+    // Check if the user has already applied for this job
+    if (!this.hasUserAppliedForJob(loggedInUser, job)) {
+      const jobApplications = JSON.parse(localStorage.getItem('jobApplications') || '[]');
+      jobApplications.push({ jobId: job.JobID, applicant: loggedInUser });
+      localStorage.setItem('jobApplications', JSON.stringify(jobApplications));
+  
+      // Update the 'applied' property of the job
+      job.applied = true;
+  
+      // Save the jobs back to local storage
+      localStorage.setItem('jobs', JSON.stringify(this.getJobs()));
+    }
+  }
+
+  getJobs(): any[] {
+    return JSON.parse(localStorage.getItem('jobs') || '[]');
+  }
+
+  getJobApplicants(jobId: string): any[] {
+    const jobApplications = JSON.parse(localStorage.getItem('jobApplications') || '[]');
+    const users = this.getJobseekerUsers(); // Assume jobseeker users are stored in localStorage
+    return jobApplications
+      .filter((application: { jobId: string, applicant: any }) => application.jobId === jobId)
+      .map((application: { jobId: string, applicant: any }) => {
+        const user = users.find(u => u.Username === application.applicant.Username);
+        return { ...application.applicant, PhoneNumber: user?.PhoneNumber };
+      });
+  }
+
+  isJobseeker(user: any): boolean {
+    return user && user.Role === 'jobseeker';
+  }
+
+  hasUserAppliedForJob(user: any, job: any): boolean {
+    const jobApplications = JSON.parse(localStorage.getItem('jobApplications') || '[]');
+    return jobApplications.some(
+      (application: { jobId: string, applicant: any }) =>
+        application.jobId === job.JobID && application.applicant.Username === user.Username
     );
   }
 }

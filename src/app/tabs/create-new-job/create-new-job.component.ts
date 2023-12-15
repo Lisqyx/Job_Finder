@@ -36,8 +36,9 @@ export class CreateNewJobComponent implements OnInit {
   createJob() {
     let jobs: any[] = JSON.parse(localStorage.getItem('jobs') || '[]');
     this.jobObj.JobID = uuidv4();
+    this.jobObj.applicants = []; // Initialize an empty array for applicants
     jobs.push(this.jobObj);
     localStorage.setItem('jobs', JSON.stringify(jobs));
-    this.router.navigate(['/jobs']);
+    this.router.navigate(['/home']);
   }
 }

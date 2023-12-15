@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { JobService } from 'src/app/service/job.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-registration',
@@ -48,15 +49,18 @@ export class RegistrationComponent {
   }
 }
   
-  onRegisterEmployer(){
-    const existingEmployerData = this.jobService.getEmployerUsers() || [];
-    existingEmployerData.push(this.employerObj);
-    this.jobService.setEmployerUsers(existingEmployerData);
-    localStorage.setItem('employerUsers', JSON.stringify(existingEmployerData));
+onRegisterEmployer() {
+  const existingEmployerData = this.jobService.getEmployerUsers() || [];
+  const uniqueID = uuidv4();
+  this.employerObj.id = uniqueID; // Assign unique ID
+  existingEmployerData.push(this.employerObj);
+  this.jobService.setEmployerUsers(existingEmployerData);
+  localStorage.setItem('employerUsers', JSON.stringify(existingEmployerData));
 
-    console.log('Employer data after registration:', existingEmployerData);
+  console.log('Employer data after registration:', existingEmployerData);
 
     this.employerObj = {
+      id: '',
       "CompanyName": '',
       "Email": '',
       "MobileNo": '',
@@ -69,17 +73,20 @@ export class RegistrationComponent {
       "State": '',
       "LogoURL": ''
     };
-  };
+  }
 
-  onRegisterJobSeeker(){
+  onRegisterJobSeeker() {
     const existingJobseekerData = this.jobService.getJobseekerUsers() || [];
+    const uniqueID = uuidv4();
+    this.jobseekerObj.id = uniqueID; // Assign unique ID
     existingJobseekerData.push(this.jobseekerObj);
     this.jobService.setJobseekerUsers(existingJobseekerData);
     localStorage.setItem('jobseekerUsers', JSON.stringify(existingJobseekerData));
 
     console.log('Jobseeker data after registration:', existingJobseekerData);
-    
+
     this.jobseekerObj = {
+      id: '',
       "FullName": "",
       "Email": "",
       "Password": "",

@@ -8,6 +8,7 @@ import { JobDetailsComponent } from './tabs/job-details/job-details.component';
 import { CreateNewJobComponent } from './tabs/create-new-job/create-new-job.component';
 import { JobListingComponent } from './tabs/job-listing/job-listing.component';
 import { MyJobsComponent } from './tabs/my-jobs/my-jobs.component';
+import { ProfileComponent } from './tabs/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
     component:JobDetailsComponent
   },
   {
+    path:'job-detail/:id',
+    component:JobDetailsComponent
+  },
+  {
     path:'new-job',
     component:CreateNewJobComponent
   },
@@ -46,6 +51,10 @@ const routes: Routes = [
   {
     path:'my-jobs',
     component:MyJobsComponent
+  },
+  {
+    path:'profile',
+    component:ProfileComponent
   },
   {
     path:'**',

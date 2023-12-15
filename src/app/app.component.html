@@ -11,9 +11,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/jobs">Jobs</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#">Companies</a>
         </li>
         <li class="nav-item">
@@ -29,7 +26,7 @@
 
       <ng-container *ngIf="isLoggedIn(); else loginButtons">
         <div class="navbar-text mx-2">
-          {{ getUserName() }}
+          <a routerLink="/profile">{{ getUserName() }}</a>
         </div>
         <button (click)="onLogout()" class="btn btn-outline-danger round-button" type="button">Logout</button>
       </ng-container>
